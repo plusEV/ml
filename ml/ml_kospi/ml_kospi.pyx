@@ -178,21 +178,21 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     for b in implied_streak_bucks:
         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
         streak_info = streak_info.ix[f.index]
-        f['streak_implieds_bp'] = streak_info.BuyPrc
-        f['streak_implieds_bz'] = streak_info.BuyQty
-        f['streak_implieds_ap'] = streak_info.SellPrc
-        f['streak_implieds_az'] = streak_info.SellQty
+        f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
+        f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
+        f['streak_implieds_ap'+str(b)] = streak_info.SellPrc
+        f['streak_implieds_az'+str(b)] = streak_info.SellQty
 
     for i in range(0,5): 
-        f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+        f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
-        f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+        f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
 
     for c in original_columns:
         del f[c]
 
-    f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values - wmids.values
+    f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values
 
     return f
 

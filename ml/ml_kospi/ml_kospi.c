@@ -9374,7 +9374,7 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
  *     for b in implied_streak_bucks:
  *         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)             # <<<<<<<<<<<<<<
  *         streak_info = streak_info.ix[f.index]
- *         f['streak_implieds_bp'] = streak_info.BuyPrc
+ *         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
  */
     __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_implieds_streaker); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
@@ -9466,8 +9466,8 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
  *     for b in implied_streak_bucks:
  *         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
  *         streak_info = streak_info.ix[f.index]             # <<<<<<<<<<<<<<
- *         f['streak_implieds_bp'] = streak_info.BuyPrc
- *         f['streak_implieds_bz'] = streak_info.BuyQty
+ *         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
+ *         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
  */
     __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_streak_info, __pyx_n_s_ix); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
@@ -9483,49 +9483,97 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
     /* "ml_kospi.pyx":181
  *         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
  *         streak_info = streak_info.ix[f.index]
- *         f['streak_implieds_bp'] = streak_info.BuyPrc             # <<<<<<<<<<<<<<
- *         f['streak_implieds_bz'] = streak_info.BuyQty
- *         f['streak_implieds_ap'] = streak_info.SellPrc
+ *         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc             # <<<<<<<<<<<<<<
+ *         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
+ *         f['streak_implieds_ap'+str(b)] = streak_info.SellPrc
  */
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_streak_info, __pyx_n_s_BuyPrc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 181, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_streak_implieds_bp, __pyx_t_4) < 0)) __PYX_ERR(1, 181, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_INCREF(__pyx_v_b);
+    __Pyx_GIVEREF(__pyx_v_b);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_b);
+    __pyx_t_16 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_n_s_streak_implieds_bp, __pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 181, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_4) < 0)) __PYX_ERR(1, 181, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "ml_kospi.pyx":182
  *         streak_info = streak_info.ix[f.index]
- *         f['streak_implieds_bp'] = streak_info.BuyPrc
- *         f['streak_implieds_bz'] = streak_info.BuyQty             # <<<<<<<<<<<<<<
- *         f['streak_implieds_ap'] = streak_info.SellPrc
- *         f['streak_implieds_az'] = streak_info.SellQty
+ *         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
+ *         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty             # <<<<<<<<<<<<<<
+ *         f['streak_implieds_ap'+str(b)] = streak_info.SellPrc
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty
  */
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_streak_info, __pyx_n_s_BuyQty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 182, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_streak_implieds_bz, __pyx_t_4) < 0)) __PYX_ERR(1, 182, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_INCREF(__pyx_v_b);
+    __Pyx_GIVEREF(__pyx_v_b);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_b);
+    __pyx_t_16 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_n_s_streak_implieds_bz, __pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_4) < 0)) __PYX_ERR(1, 182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "ml_kospi.pyx":183
- *         f['streak_implieds_bp'] = streak_info.BuyPrc
- *         f['streak_implieds_bz'] = streak_info.BuyQty
- *         f['streak_implieds_ap'] = streak_info.SellPrc             # <<<<<<<<<<<<<<
- *         f['streak_implieds_az'] = streak_info.SellQty
+ *         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
+ *         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
+ *         f['streak_implieds_ap'+str(b)] = streak_info.SellPrc             # <<<<<<<<<<<<<<
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty
  * 
  */
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_streak_info, __pyx_n_s_SellPrc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 183, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_streak_implieds_ap, __pyx_t_4) < 0)) __PYX_ERR(1, 183, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_INCREF(__pyx_v_b);
+    __Pyx_GIVEREF(__pyx_v_b);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_b);
+    __pyx_t_16 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_n_s_streak_implieds_ap, __pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_4) < 0)) __PYX_ERR(1, 183, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "ml_kospi.pyx":184
- *         f['streak_implieds_bz'] = streak_info.BuyQty
- *         f['streak_implieds_ap'] = streak_info.SellPrc
- *         f['streak_implieds_az'] = streak_info.SellQty             # <<<<<<<<<<<<<<
+ *         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
+ *         f['streak_implieds_ap'+str(b)] = streak_info.SellPrc
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty             # <<<<<<<<<<<<<<
  * 
  *     for i in range(0,5):
  */
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_streak_info, __pyx_n_s_SellQty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 184, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_streak_implieds_az, __pyx_t_4) < 0)) __PYX_ERR(1, 184, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 184, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_INCREF(__pyx_v_b);
+    __Pyx_GIVEREF(__pyx_v_b);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_b);
+    __pyx_t_16 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 184, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_n_s_streak_implieds_az, __pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 184, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_4) < 0)) __PYX_ERR(1, 184, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "ml_kospi.pyx":178
@@ -9539,10 +9587,10 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
   /* "ml_kospi.pyx":186
- *         f['streak_implieds_az'] = streak_info.SellQty
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty
  * 
  *     for i in range(0,5):             # <<<<<<<<<<<<<<
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
  */
   __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 186, __pyx_L1_error)
@@ -9593,32 +9641,26 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
     /* "ml_kospi.pyx":187
  * 
  *     for i in range(0,5):
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values             # <<<<<<<<<<<<<<
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values             # <<<<<<<<<<<<<<
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 187, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 187, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 187, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_INCREF(__pyx_slice__27);
     __Pyx_GIVEREF(__pyx_slice__27);
-    PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_slice__27);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_slice__27);
     __Pyx_INCREF(__pyx_v_i);
     __Pyx_GIVEREF(__pyx_v_i);
-    PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_v_i);
-    __pyx_t_9 = PyObject_GetItem(__pyx_t_7, __pyx_t_16); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 187, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-    __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_values); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 187, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_v_i);
+    __pyx_t_16 = PyObject_GetItem(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyNumber_Subtract(__pyx_t_8, __pyx_t_16); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 187, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_values); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 187, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
@@ -9631,19 +9673,19 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
     __pyx_t_16 = PyNumber_Add(__pyx_n_s_implied_bp, __pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_16, __pyx_t_9) < 0)) __PYX_ERR(1, 187, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_16, __pyx_t_7) < 0)) __PYX_ERR(1, 187, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
     /* "ml_kospi.pyx":188
  *     for i in range(0,5):
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values             # <<<<<<<<<<<<<<
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 188, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 188, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_16 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_5, 5, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
     __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 188, __pyx_L1_error)
@@ -9654,9 +9696,9 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
     __Pyx_GIVEREF(__pyx_t_16);
     PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_16);
     __pyx_t_16 = 0;
-    __pyx_t_16 = PyObject_GetItem(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 188, __pyx_L1_error)
+    __pyx_t_16 = PyObject_GetItem(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
@@ -9666,109 +9708,103 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
     __Pyx_INCREF(__pyx_v_i);
     __Pyx_GIVEREF(__pyx_v_i);
     PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_v_i);
-    __pyx_t_9 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_16, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 188, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
+    __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_16, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 188, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-    __pyx_t_16 = PyNumber_Add(__pyx_n_s_implied_bz, __pyx_t_9); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 188, __pyx_L1_error)
+    __pyx_t_16 = PyNumber_Add(__pyx_n_s_implied_bz, __pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_16, __pyx_t_8) < 0)) __PYX_ERR(1, 188, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
     /* "ml_kospi.pyx":189
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values             # <<<<<<<<<<<<<<
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values             # <<<<<<<<<<<<<<
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
  * 
  */
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_10, 10, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_16);
-    __pyx_t_9 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_10, 10, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_INCREF(__pyx_slice__29);
     __Pyx_GIVEREF(__pyx_slice__29);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_slice__29);
-    __Pyx_GIVEREF(__pyx_t_9);
-    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_9);
-    __pyx_t_9 = 0;
-    __pyx_t_9 = PyObject_GetItem(__pyx_t_16, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_values); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyNumber_Subtract(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GIVEREF(__pyx_t_16);
+    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_16);
+    __pyx_t_16 = 0;
+    __pyx_t_16 = PyObject_GetItem(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_values); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_INCREF(__pyx_v_i);
     __Pyx_GIVEREF(__pyx_v_i);
-    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_i);
-    __pyx_t_8 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 189, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_v_i);
+    __pyx_t_8 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_16, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Add(__pyx_n_s_implied_ap, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __pyx_t_16 = PyNumber_Add(__pyx_n_s_implied_ap, __pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_9) < 0)) __PYX_ERR(1, 189, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_16, __pyx_t_7) < 0)) __PYX_ERR(1, 189, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
     /* "ml_kospi.pyx":190
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values             # <<<<<<<<<<<<<<
  * 
  *     for c in original_columns:
  */
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 190, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_15, 15, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_implieds_at_f, __pyx_n_s_iloc); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_16 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_15, 15, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_INCREF(__pyx_slice__30);
     __Pyx_GIVEREF(__pyx_slice__30);
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_slice__30);
-    __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7);
-    __pyx_t_7 = 0;
-    __pyx_t_7 = PyObject_GetItem(__pyx_t_9, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 190, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_GIVEREF(__pyx_t_16);
+    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_16);
+    __pyx_t_16 = 0;
+    __pyx_t_16 = PyObject_GetItem(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __pyx_t_16 = PyTuple_New(1); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_INCREF(__pyx_v_i);
     __Pyx_GIVEREF(__pyx_v_i);
-    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_i);
-    __pyx_t_9 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_7, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 190, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_9);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Add(__pyx_n_s_implied_az, __pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
+    PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_v_i);
+    __pyx_t_7 = __Pyx_PyObject_Call(((PyObject *)(&PyString_Type)), __pyx_t_16, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 190, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_7, __pyx_t_8) < 0)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+    __pyx_t_16 = PyNumber_Add(__pyx_n_s_implied_az, __pyx_t_7); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_t_16, __pyx_t_8) < 0)) __PYX_ERR(1, 190, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
     /* "ml_kospi.pyx":186
- *         f['streak_implieds_az'] = streak_info.SellQty
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty
  * 
  *     for i in range(0,5):             # <<<<<<<<<<<<<<
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
  */
   }
@@ -9828,7 +9864,7 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
  *     for c in original_columns:
  *         del f[c]             # <<<<<<<<<<<<<<
  * 
- *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values - wmids.values
+ *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values
  */
     if (unlikely(PyObject_DelItem(__pyx_v_f, __pyx_v_c) < 0)) __PYX_ERR(1, 193, __pyx_L1_error)
 
@@ -9845,66 +9881,60 @@ static PyObject *__pyx_pf_8ml_kospi_12kospi_implieds_enriched_features(CYTHON_UN
   /* "ml_kospi.pyx":195
  *         del f[c]
  * 
- *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values - wmids.values             # <<<<<<<<<<<<<<
+ *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values             # <<<<<<<<<<<<<<
  * 
  *     return f
  */
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_asof); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_index); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_timedelta64); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __pyx_t_16 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_index); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_timedelta64); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_16, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __pyx_t_9 = PyNumber_Add(__pyx_t_16, __pyx_t_7); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-  __pyx_t_16 = PyNumber_Add(__pyx_t_7, __pyx_t_9); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_16);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = NULL;
+  __pyx_t_7 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_9)) {
+    __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_7)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_9);
+      __Pyx_INCREF(__pyx_t_7);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_8, function);
     }
   }
-  if (!__pyx_t_9) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_16); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+  if (!__pyx_t_7) {
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
-    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9); __pyx_t_9 = NULL;
-    __Pyx_GIVEREF(__pyx_t_16);
-    PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_16);
-    __pyx_t_16 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __pyx_t_16 = PyTuple_New(1+1); if (unlikely(!__pyx_t_16)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_16);
+    __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_7); __pyx_t_7 = NULL;
+    __Pyx_GIVEREF(__pyx_t_9);
+    PyTuple_SET_ITEM(__pyx_t_16, 0+1, __pyx_t_9);
+    __pyx_t_9 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   }
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_values); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_values); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = PyNumber_Subtract(__pyx_t_8, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
+  if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_score, __pyx_t_8) < 0)) __PYX_ERR(1, 195, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_score, __pyx_t_7) < 0)) __PYX_ERR(1, 195, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "ml_kospi.pyx":197
- *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values - wmids.values
+ *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values
  * 
  *     return f             # <<<<<<<<<<<<<<
  * 
@@ -20433,10 +20463,10 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__25);
 
   /* "ml_kospi.pyx":186
- *         f['streak_implieds_az'] = streak_info.SellQty
+ *         f['streak_implieds_az'+str(b)] = streak_info.SellQty
  * 
  *     for i in range(0,5):             # <<<<<<<<<<<<<<
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
  */
   __pyx_tuple__26 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_5); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 186, __pyx_L1_error)
@@ -20446,9 +20476,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "ml_kospi.pyx":187
  * 
  *     for i in range(0,5):
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values             # <<<<<<<<<<<<<<
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values             # <<<<<<<<<<<<<<
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  */
   __pyx_slice__27 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__27)) __PYX_ERR(1, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__27);
@@ -20456,9 +20486,9 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "ml_kospi.pyx":188
  *     for i in range(0,5):
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values             # <<<<<<<<<<<<<<
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
  */
   __pyx_slice__28 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__28)) __PYX_ERR(1, 188, __pyx_L1_error)
@@ -20466,9 +20496,9 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_slice__28);
 
   /* "ml_kospi.pyx":189
- *         f['implied_bp'+str(i)] = wmids.values - implieds_at_f.iloc[:,i].values
+ *         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values             # <<<<<<<<<<<<<<
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values             # <<<<<<<<<<<<<<
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
  * 
  */
@@ -20478,7 +20508,7 @@ static int __Pyx_InitCachedConstants(void) {
 
   /* "ml_kospi.pyx":190
  *         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
- *         f['implied_ap'+str(i)] = wmids.values - implieds_at_f.iloc[:,i+10].values
+ *         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
  *         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values             # <<<<<<<<<<<<<<
  * 
  *     for c in original_columns:
@@ -20490,7 +20520,7 @@ static int __Pyx_InitCachedConstants(void) {
   /* "ml_kospi.pyx":195
  *         del f[c]
  * 
- *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values - wmids.values             # <<<<<<<<<<<<<<
+ *     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values             # <<<<<<<<<<<<<<
  * 
  *     return f
  */
