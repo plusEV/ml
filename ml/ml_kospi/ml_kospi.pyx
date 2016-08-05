@@ -119,6 +119,15 @@ def implieds_streaker(np.ndarray[long,ndim=1] times, np.ndarray[double,ndim=1] p
             sells[i][1] = tots_sells  
     return pd.DataFrame(np.hstack((buys,sells)),columns=['BuyPrc','BuyQty','SellPrc','SellQty'],index=times)
 
+def make_kospi_implieds_relative(f):
+    cols_to_adjust = f.columns[map(lambda x: True if any(s in x for s in ['ap','bp','lag','wmid','vwap','score']) \
+                               else False, f.columns)]
+    wmids = f['wmid'].copy()
+    for c in cols_to_adjust:
+        f[c] = f[c].sub(wmids)
+    del f['wmid']
+    return f
+
 def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120, score_seconds=30):
     implieds = implieds.fillna(method='ffill')
     liquid_future = liquid_underlying(front.symbol)
@@ -177,6 +186,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     implied_streak_bucks = [1,5,10]
     for b in implied_streak_bucks:
         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
+        streak_info.index = front.index
         streak_info = streak_info.ix[f.index]
         f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
         f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
@@ -191,7 +201,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
 
     for c in original_columns:
         del f[c]
-
+    f['wmid'] = wmids.values
     f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values
 
     return f
