@@ -165,8 +165,8 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     buckets = [1,5,10,30,60,300]
 
     for i,b in enumerate(buckets):
-        f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values
-        f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+        f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values
+        f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
         
     streak_bucks = [1,5,10]
 

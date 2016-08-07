@@ -8895,8 +8895,8 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
  *     buckets = [1,5,10,30,60,300]
  * 
  *     for i,b in enumerate(buckets):             # <<<<<<<<<<<<<<
- *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values
- *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+ *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values
+ *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
  */
   __Pyx_INCREF(__pyx_int_0);
   __pyx_t_2 = __pyx_int_0;
@@ -8922,8 +8922,8 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
     /* "ml_kospi.pyx":168
  * 
  *     for i,b in enumerate(buckets):
- *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values             # <<<<<<<<<<<<<<
- *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+ *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values             # <<<<<<<<<<<<<<
+ *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
  * 
  */
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_asof); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 168, __pyx_L1_error)
@@ -8952,9 +8952,9 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_5); __pyx_t_5 = NULL;
     }
-    __Pyx_INCREF(__pyx_v_i);
-    __Pyx_GIVEREF(__pyx_v_i);
-    PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_v_i);
+    __Pyx_INCREF(__pyx_v_b);
+    __Pyx_GIVEREF(__pyx_v_b);
+    PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_10, __pyx_v_b);
     __Pyx_INCREF(__pyx_n_s_s);
     __Pyx_GIVEREF(__pyx_n_s_s);
     PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_10, __pyx_n_s_s);
@@ -9012,8 +9012,8 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
 
     /* "ml_kospi.pyx":169
  *     for i,b in enumerate(buckets):
- *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values
- *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)             # <<<<<<<<<<<<<<
+ *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values
+ *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)             # <<<<<<<<<<<<<<
  * 
  *     streak_bucks = [1,5,10]
  */
@@ -9093,7 +9093,7 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     }
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyNumber_Multiply(__pyx_v_i, __pyx_float_1e9); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 169, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Multiply(__pyx_v_b, __pyx_float_1e9); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_13 = NULL;
     __pyx_t_10 = 0;
@@ -9150,15 +9150,15 @@ static PyObject *__pyx_pf_8ml_kospi_16kospi_implieds_enriched_features(CYTHON_UN
  *     buckets = [1,5,10,30,60,300]
  * 
  *     for i,b in enumerate(buckets):             # <<<<<<<<<<<<<<
- *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values
- *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+ *         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values
+ *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
  */
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ml_kospi.pyx":171
- *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+ *         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
  * 
  *     streak_bucks = [1,5,10]             # <<<<<<<<<<<<<<
  * 
