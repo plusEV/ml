@@ -44,6 +44,23 @@ def opposing_deltas_cython(np.ndarray[double,ndim=2] implieds_info,np.ndarray[do
         res[i][1] = ask_deltas_through
     return res
 
+def weighted_average_implied(np.ndarray[double,ndim=2] price_sizes,int sum_till_deltas):
+    cdef:
+        long ps_len = price_sizes.shape[0],i,j
+        np.ndarray[DTYPE_t, ndim=1] res = np.zeros(ps_len, dtype=np.double)
+        double deltas,total
+        
+    for i in range(0,ps_len):
+        deltas = 0.
+        total = 0.
+        for j in range(0,5):
+            deltas+= price_sizes[i][j*2+1]
+            total+= price_sizes[i][j*2] * price_sizes[i][j*2+1]
+            if deltas > sum_till_deltas:
+                break
+        res[i] = total / deltas
+    return res
+
 #bid1,bidsize1,bid2,bidsize2 etc
 def deltas_in_face(np.ndarray[double,ndim=1] prices, np.ndarray[double,ndim=2] price_sizes, int buy):
     cdef:
@@ -148,10 +165,10 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     buckets = [1,5,10,30,60,300]
 
     for i,b in enumerate(buckets):
-        f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s'))
-        f['vwap'+str(b)] =rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
+        f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(i,'s')).values
+        f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),i*1e9,1)
         
-    streak_bucks = [1,5,10,30]
+    streak_bucks = [1,5,10]
 
     for i,b in enumerate(streak_bucks):
         streak_buys_bid,streak_sells_bid = [x.ravel() for x in \
@@ -183,7 +200,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     adjusted_trade_size = (front.delta < 0).astype(int)*-1*front.imp_fut_tz
     adjusted_trade_size[front.delta >= 0] = front.imp_fut_tz
 
-    implied_streak_bucks = [1,5,10]
+    implied_streak_bucks = [1,5]
     for b in implied_streak_bucks:
         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
         streak_info.index = front.index
@@ -198,6 +215,23 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
         f['implied_bz'+str(i)] = implieds_at_f.iloc[:,i+5].values
         f['implied_ap'+str(i)] = implieds_at_f.iloc[:,i+10].values
         f['implied_az'+str(i)] = implieds_at_f.iloc[:,i+15].values
+
+    f['implied_bp'] = weighted_average_implied(f.ix[:,['implied_bp0','implied_bz0','implied_bp1','implied_bz1',
+                                                       'implied_bp2','implied_bz2','implied_bp3','implied_bz3',
+                                                       'implied_bp4','implied_bz4']].values,20)
+    f['implied_ap'] = weighted_average_implied(f.ix[:,['implied_ap0','implied_az0','implied_ap1','implied_az1',
+                                                       'implied_ap2','implied_az2','implied_ap3','implied_az3',
+                                                       'implied_ap4','implied_az4']].values,20)                                                   
+    
+    for i in range(0,5): 
+        del f['implied_bp'+str(i)]
+        del f['implied_bz'+str(i)]
+        del f['implied_ap'+str(i)]
+        del f['implied_az'+str(i)]
+
+    for b in implied_streak_bucks:
+        f['implied_bid_chg'+str(b)] = f['implied_bp'].values - f['implied_bp'].asof(f.index - np.timedelta64(b,'s')).values
+        f['implied_ask_chg'+str(b)] = f['implied_ap'].values - f['implied_ap'].asof(f.index - np.timedelta64(b,'s')).values
 
     for c in original_columns:
         del f[c]
