@@ -159,6 +159,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     original_columns = f.columns
 
     wmids = pd.Series(map(lambda bp,bs,ap,az: wmid(bp,bs,ap,az,.05), f.bp0,f.bz0,f.ap0,f.az0),index=f.index)
+    woah = wmids.copy().values
     f['effect'] = net_effect_cython(f.ix[:,['bp0','bz0','ap0','az0','last','lastsize']].values,f['id'].values)
     f.effect.fillna(0,inplace=True)
 
@@ -205,10 +206,9 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
         streak_info = implieds_streaker(front.index.astype(np.int64), front.imp_fut_tp.values, adjusted_trade_size.values,b*1e9,10)
         streak_info.index = front.index
         streak_info = streak_info.ix[f.index]
-        f['streak_implieds_bp'+str(b)] = streak_info.BuyPrc
-        f['streak_implieds_bz'+str(b)] = streak_info.BuyQty
-        f['streak_implieds_ap'+str(b)] = streak_info.SellPrc
-        f['streak_implieds_az'+str(b)] = streak_info.SellQty
+        f['streak_buy_implied'+str(b)] = np.maximum(0.,streak_info.BuyPrc - wmids) * streak_info.BuyQty
+        f['streak_sell_implied'+str(b)] = np.maximum(0.,wmids - streak_info.SellPrc) * streak_info.SellQty.abs()
+
 
     for i in range(0,5): 
         f['implied_bp'+str(i)] = implieds_at_f.iloc[:,i].values
