@@ -28,6 +28,19 @@ def train_test_split(data,only_interesting=True):
     
     return X_train_std,X_test_std,train_y,test_y
 
+def train_test_split_robust(X,y, test_size=0.3,scale=True):  
+    ntrn = int(round((X.shape[0]) * (1 - test_size)))
+    X_train, y_train = X[:ntrn],y[:ntrn]
+    X_test, y_test = X[ntrn:],y[ntrn:]
+    
+    from sklearn.preprocessing import RobustScaler
+    RS = RobustScaler()
+    
+    if not scale:
+        return X_train, X_test, y_train, y_test
+    X_train = RS.fit_transform(X_train)
+    return X_train, RS.transform(X_test), y_train, y_test
+
 def list_h5s(mypath,enriched=False):
     s = pd.Series([f.strip() for f in listdir(mypath)])
     dates = s.ix[s.str[-2:]=='h5']

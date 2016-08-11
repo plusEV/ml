@@ -136,16 +136,26 @@ def implieds_streaker(np.ndarray[long,ndim=1] times, np.ndarray[double,ndim=1] p
             sells[i][1] = tots_sells  
     return pd.DataFrame(np.hstack((buys,sells)),columns=['BuyPrc','BuyQty','SellPrc','SellQty'],index=times)
 
-def make_kospi_implieds_relative(f):
-    cols_to_adjust = f.columns[map(lambda x: True if any(s in x for s in ['ap','bp','lag','wmid','vwap','score']) \
+def make_kospi_implieds_relative(f,score_seconds=10):
+    cols_to_adjust = f.columns[map(lambda x: True if any(s in x for s in ['ap','bp','lag','wmid','vwap']) \
                                else False, f.columns)]
     wmids = f['wmid'].copy()
+
+    f['score'] = wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values - wmids.values
+    
+    f['score_buy'] = wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values - f['ap'].values
+    f['score_sell'] = f['bp'].values - wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values
+
+    f['score_bid_survives'] = ((f['bp'].asof(f.index + np.timedelta64(score_seconds,'s')).values - f['bp'].values) >= 0).astype(int)
+    f['score_ask_survives'] = ((f['ap'].asof(f.index + np.timedelta64(score_seconds,'s')).values - f['ap'].values) <= 0).astype(int)
+
     for c in cols_to_adjust:
         f[c] = f[c].sub(wmids)
+
     del f['wmid']
     return f
 
-def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120, score_seconds=30):
+def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120):
     implieds = implieds.fillna(method='ffill')
     liquid_future = liquid_underlying(front.symbol)
     futs = front.ix[front.symbol == liquid_future]
@@ -168,7 +178,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     for i,b in enumerate(buckets):
         f['lag'+str(b)] =  wmids.asof(wmids.index - np.timedelta64(b,'s')).values
         f['vwap'+str(b)] = rolling_vwap_cython(f.index.astype(long),f['last'].values,f.lastsize.values.astype(np.double),b*1e9,1)
-        f['diff'+str(i)] = wmids.diff(b).values
+        f['diff'+str(i+1)] = wmids.diff(i+1).values
     streak_bucks = [1,5,10]
 
     for i,b in enumerate(streak_bucks):
@@ -233,10 +243,12 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
         f['implied_bid_chg'+str(b)] = f['implied_bp'].values - f['implied_bp'].asof(f.index - np.timedelta64(b,'s')).values
         f['implied_ask_chg'+str(b)] = f['implied_ap'].values - f['implied_ap'].asof(f.index - np.timedelta64(b,'s')).values
 
+    f['bp'] = f['bp0']
+    f['ap'] = f['ap0']
+
     for c in original_columns:
         del f[c]
     f['wmid'] = wmids.values
-    f['score'] = wmids.asof(wmids.index + np.timedelta64(30,'s')).values
 
     return f
 
