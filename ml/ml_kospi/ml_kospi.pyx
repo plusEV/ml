@@ -184,10 +184,10 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     for i,b in enumerate(streak_bucks):
         streak_buys_bid,streak_sells_bid = [x.ravel() for x in \
             np.hsplit(streaker_with_refs(f.index.astype(long),f['last'].values,\
-            f.effect.values.astype(long),f.bp0.values,b*1e9),2)]
+            f.effect.values.astype(long),f.bp0.values,b*1e9,20),2)]
         streak_buys_ask,streak_sells_ask = [x.ravel() for x in \
             np.hsplit(streaker_with_refs(f.index.astype(long),f['last'].values,\
-            f.effect.values.astype(long),f.ap0.values,b*1e9),2)]
+            f.effect.values.astype(long),f.ap0.values,b*1e9,20),2)]
         f['streak_buys_bid'+str(b)] = streak_buys_bid
         f['streak_sells_bid'+str(b)] = streak_sells_bid
         f['streak_buys_ask'+str(b)] = streak_buys_ask
