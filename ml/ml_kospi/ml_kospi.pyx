@@ -136,6 +136,8 @@ def implieds_streaker(np.ndarray[long,ndim=1] times, np.ndarray[double,ndim=1] p
             sells[i][1] = tots_sells  
     return pd.DataFrame(np.hstack((buys,sells)),columns=['BuyPrc','BuyQty','SellPrc','SellQty'],index=times)
 
+
+
 def make_kospi_implieds_relative(f,score_seconds=10):
     cols_to_adjust = f.columns[map(lambda x: True if any(s in x for s in ['ap','bp','lag','wmid','vwap']) \
                                else False, f.columns)]
@@ -168,7 +170,7 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
 
     original_columns = f.columns
 
-    wmids = pd.Series(map(lambda bp,bs,ap,az: wmid(bp,bs,ap,az,.05), f.bp0,f.bz0,f.ap0,f.az0),index=f.index)
+    wmids = pd.Series(map(lambda bp,bs,ap,az: wmid(bp,bs,ap,az,.06), f.bp0,f.bz0,f.ap0,f.az0),index=f.index)
     woah = wmids.copy().values
     f['effect'] = net_effect_cython(f.ix[:,['bp0','bz0','ap0','az0','last','lastsize']].values,f['id'].values)
     f.effect.fillna(0,inplace=True)
@@ -245,6 +247,8 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
 
     f['bp'] = f['bp0']
     f['ap'] = f['ap0']
+    f['bz'] = f['bpz']
+    f['az'] = f['apz']
 
     for c in original_columns:
         del f[c]
