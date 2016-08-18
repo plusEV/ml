@@ -247,8 +247,8 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
 
     f['bp'] = f['bp0']
     f['ap'] = f['ap0']
-    f['bz'] = f['bpz']
-    f['az'] = f['apz']
+    f['bz'] = f['bz0']
+    f['az'] = f['az0']
 
     for c in original_columns:
         del f[c]

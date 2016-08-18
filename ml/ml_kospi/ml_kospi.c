@@ -1617,7 +1617,6 @@ static const char __pyx_k_ap1[] = "ap1";
 static const char __pyx_k_ap2[] = "ap2";
 static const char __pyx_k_ap3[] = "ap3";
 static const char __pyx_k_ap4[] = "ap4";
-static const char __pyx_k_apz[] = "apz";
 static const char __pyx_k_az0[] = "az0";
 static const char __pyx_k_az1[] = "az1";
 static const char __pyx_k_az2[] = "az2";
@@ -1628,7 +1627,6 @@ static const char __pyx_k_bp1[] = "bp1";
 static const char __pyx_k_bp2[] = "bp2";
 static const char __pyx_k_bp3[] = "bp3";
 static const char __pyx_k_bp4[] = "bp4";
-static const char __pyx_k_bpz[] = "bpz";
 static const char __pyx_k_buy[] = "buy";
 static const char __pyx_k_bz0[] = "bz0";
 static const char __pyx_k_bz1[] = "bz1";
@@ -2014,7 +2012,6 @@ static PyObject *__pyx_n_s_ap2;
 static PyObject *__pyx_n_s_ap3;
 static PyObject *__pyx_n_s_ap4;
 static PyObject *__pyx_n_s_apply;
-static PyObject *__pyx_n_s_apz;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_as_index;
 static PyObject *__pyx_n_s_ask_deltas_through;
@@ -2036,7 +2033,6 @@ static PyObject *__pyx_n_s_bp1;
 static PyObject *__pyx_n_s_bp2;
 static PyObject *__pyx_n_s_bp3;
 static PyObject *__pyx_n_s_bp4;
-static PyObject *__pyx_n_s_bpz;
 static PyObject *__pyx_n_s_bs;
 static PyObject *__pyx_n_s_buckets;
 static PyObject *__pyx_n_s_buy;
@@ -12569,7 +12565,7 @@ static PyObject *__pyx_pf_8ml_kospi_18kospi_implieds_enriched_features(CYTHON_UN
  * 
  *     f['bp'] = f['bp0']             # <<<<<<<<<<<<<<
  *     f['ap'] = f['ap0']
- *     f['bz'] = f['bpz']
+ *     f['bz'] = f['bz0']
  */
   __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_bp0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -12580,8 +12576,8 @@ static PyObject *__pyx_pf_8ml_kospi_18kospi_implieds_enriched_features(CYTHON_UN
  * 
  *     f['bp'] = f['bp0']
  *     f['ap'] = f['ap0']             # <<<<<<<<<<<<<<
- *     f['bz'] = f['bpz']
- *     f['az'] = f['apz']
+ *     f['bz'] = f['bz0']
+ *     f['az'] = f['az0']
  */
   __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_ap0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 249, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -12591,29 +12587,29 @@ static PyObject *__pyx_pf_8ml_kospi_18kospi_implieds_enriched_features(CYTHON_UN
   /* "ml_kospi.pyx":250
  *     f['bp'] = f['bp0']
  *     f['ap'] = f['ap0']
- *     f['bz'] = f['bpz']             # <<<<<<<<<<<<<<
- *     f['az'] = f['apz']
+ *     f['bz'] = f['bz0']             # <<<<<<<<<<<<<<
+ *     f['az'] = f['az0']
  * 
  */
-  __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_bpz); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 250, __pyx_L1_error)
+  __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_bz0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_bz, __pyx_t_3) < 0)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "ml_kospi.pyx":251
  *     f['ap'] = f['ap0']
- *     f['bz'] = f['bpz']
- *     f['az'] = f['apz']             # <<<<<<<<<<<<<<
+ *     f['bz'] = f['bz0']
+ *     f['az'] = f['az0']             # <<<<<<<<<<<<<<
  * 
  *     for c in original_columns:
  */
-  __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_apz); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_3 = PyObject_GetItem(__pyx_v_f, __pyx_n_s_az0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_az, __pyx_t_3) < 0)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "ml_kospi.pyx":253
- *     f['az'] = f['apz']
+ *     f['az'] = f['az0']
  * 
  *     for c in original_columns:             # <<<<<<<<<<<<<<
  *         del f[c]
@@ -12671,7 +12667,7 @@ static PyObject *__pyx_pf_8ml_kospi_18kospi_implieds_enriched_features(CYTHON_UN
     if (unlikely(PyObject_DelItem(__pyx_v_f, __pyx_v_c) < 0)) __PYX_ERR(1, 254, __pyx_L1_error)
 
     /* "ml_kospi.pyx":253
- *     f['az'] = f['apz']
+ *     f['az'] = f['az0']
  * 
  *     for c in original_columns:             # <<<<<<<<<<<<<<
  *         del f[c]
@@ -22904,7 +22900,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ap3, __pyx_k_ap3, sizeof(__pyx_k_ap3), 0, 0, 1, 1},
   {&__pyx_n_s_ap4, __pyx_k_ap4, sizeof(__pyx_k_ap4), 0, 0, 1, 1},
   {&__pyx_n_s_apply, __pyx_k_apply, sizeof(__pyx_k_apply), 0, 0, 1, 1},
-  {&__pyx_n_s_apz, __pyx_k_apz, sizeof(__pyx_k_apz), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_as_index, __pyx_k_as_index, sizeof(__pyx_k_as_index), 0, 0, 1, 1},
   {&__pyx_n_s_ask_deltas_through, __pyx_k_ask_deltas_through, sizeof(__pyx_k_ask_deltas_through), 0, 0, 1, 1},
@@ -22926,7 +22921,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_bp2, __pyx_k_bp2, sizeof(__pyx_k_bp2), 0, 0, 1, 1},
   {&__pyx_n_s_bp3, __pyx_k_bp3, sizeof(__pyx_k_bp3), 0, 0, 1, 1},
   {&__pyx_n_s_bp4, __pyx_k_bp4, sizeof(__pyx_k_bp4), 0, 0, 1, 1},
-  {&__pyx_n_s_bpz, __pyx_k_bpz, sizeof(__pyx_k_bpz), 0, 0, 1, 1},
   {&__pyx_n_s_bs, __pyx_k_bs, sizeof(__pyx_k_bs), 0, 0, 1, 1},
   {&__pyx_n_s_buckets, __pyx_k_buckets, sizeof(__pyx_k_buckets), 0, 0, 1, 1},
   {&__pyx_n_s_buy, __pyx_k_buy, sizeof(__pyx_k_buy), 0, 0, 1, 1},
