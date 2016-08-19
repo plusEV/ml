@@ -250,6 +250,24 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     f['bz'] = f['bz0']
     f['az'] = f['az0']
 
+    ticks = pd.Series(tick_dirs(f.ix[:,['bp','ap']].values),index=f.index)
+
+    next_ticks = ticks.replace(0,np.NaN).fillna(method='bfill')
+    next_ticks[ticks!=0] = np.NaN
+    next_ticks.fillna(method='bfill',inplace=True)
+
+    prev_ticks = ticks.replace(0,np.NaN).fillna(method='ffill')
+    prev_ticks[ticks!=0]= np.NaN
+    prev_ticks.fillna(method='ffill',inplace=True)
+
+    f['prev'] = prev_ticks
+    f['next'] = next_ticks
+    f['tick'] = ticks
+    f['uptick'] = 0
+    f['downtick'] = 0
+    f.uptick.ix[f.next == 1] = 1
+    f.downtick.ix[f.next == -1] = 1
+
     for c in original_columns:
         del f[c]
     f['wmid'] = wmids.values
