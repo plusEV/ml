@@ -148,13 +148,17 @@ def make_kospi_implieds_relative(f,score_seconds=10):
     f['score_buy'] = wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values - f['ap'].values
     f['score_sell'] = f['bp'].values - wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values
 
+    f['score_bid_below'] = wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values - (f['ap'].values-.05)
+    f['score_offer_above'] = (f['bp'].values+.05) - wmids.asof(wmids.index + np.timedelta64(score_seconds,'s')).values
+
+
     f['score_bid_survives'] = ((f['bp'].asof(f.index + np.timedelta64(score_seconds,'s')).values - f['bp'].values) >= 0).astype(int)
     f['score_ask_survives'] = ((f['ap'].asof(f.index + np.timedelta64(score_seconds,'s')).values - f['ap'].values) <= 0).astype(int)
 
     for c in cols_to_adjust:
         f[c] = f[c].sub(wmids)
-
-    del f['wmid']
+    
+    f['wmid'] = wmids
     return f
 
 def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120):
@@ -250,23 +254,6 @@ def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_
     f['bz'] = f['bz0']
     f['az'] = f['az0']
 
-    ticks = pd.Series(tick_dirs(f.ix[:,['bp','ap']].values),index=f.index)
-
-    next_ticks = ticks.replace(0,np.NaN).fillna(method='bfill')
-    next_ticks[ticks!=0] = np.NaN
-    next_ticks.fillna(method='bfill',inplace=True)
-
-    prev_ticks = ticks.replace(0,np.NaN).fillna(method='ffill')
-    prev_ticks[ticks!=0]= np.NaN
-    prev_ticks.fillna(method='ffill',inplace=True)
-
-    f['prev'] = prev_ticks
-    f['next'] = next_ticks
-    f['tick'] = ticks
-    f['uptick'] = 0
-    f['downtick'] = 0
-    f.uptick.ix[f.next == 1] = 1
-    f.downtick.ix[f.next == -1] = 1
 
     for c in original_columns:
         del f[c]
