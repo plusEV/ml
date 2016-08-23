@@ -8961,7 +8961,7 @@ static PyObject *__pyx_pf_8ml_kospi_16make_kospi_implieds_relative(CYTHON_UNUSED
  *     for c in cols_to_adjust:
  *         f[c] = f[c].sub(wmids)             # <<<<<<<<<<<<<<
  * 
- *     f['wmid'] = wmids
+ *     f['wmid'] = wmids.values
  */
     __pyx_t_1 = PyObject_GetItem(__pyx_v_f, __pyx_v_c); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 159, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -9009,15 +9009,18 @@ static PyObject *__pyx_pf_8ml_kospi_16make_kospi_implieds_relative(CYTHON_UNUSED
   /* "ml_kospi.pyx":161
  *         f[c] = f[c].sub(wmids)
  * 
- *     f['wmid'] = wmids             # <<<<<<<<<<<<<<
+ *     f['wmid'] = wmids.values             # <<<<<<<<<<<<<<
  *     return f
  * 
  */
-  if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_wmid, __pyx_v_wmids) < 0)) __PYX_ERR(1, 161, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_wmids, __pyx_n_s_values); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (unlikely(PyObject_SetItem(__pyx_v_f, __pyx_n_s_wmid, __pyx_t_3) < 0)) __PYX_ERR(1, 161, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "ml_kospi.pyx":162
  * 
- *     f['wmid'] = wmids
+ *     f['wmid'] = wmids.values
  *     return f             # <<<<<<<<<<<<<<
  * 
  * def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120):

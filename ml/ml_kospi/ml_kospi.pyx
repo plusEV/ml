@@ -158,7 +158,7 @@ def make_kospi_implieds_relative(f,score_seconds=10):
     for c in cols_to_adjust:
         f[c] = f[c].sub(wmids)
     
-    f['wmid'] = wmids
+    f['wmid'] = wmids.values
     return f
 
 def kospi_implieds_enriched_features(d,front,implieds,AM_exclude_seconds=180,PM_exclude_seconds=120):
