@@ -41,14 +41,16 @@ def train_test_split_robust(X,y, test_size=0.3,scale=True):
     X_train = RS.fit_transform(X_train)
     return X_train, RS.transform(X_test), y_train, y_test
 
-def list_h5s(mypath,enriched=False):
+def list_h5s(mypath,enriched=False, dates_only=True):
     s = pd.Series([f.strip() for f in listdir(mypath)])
     dates = s.ix[s.str[-2:]=='h5']
     if not enriched:
         dates = dates.ix[np.logical_not(dates.str.contains("enriched"))]
     else:
         dates = dates.ix[(dates.str.contains("enriched"))]
-    return dates
+    if not dates_only:
+        return dates
+    return dates.ix[dates.str[0]=='2']
 
 def optimize_gbt(trainX,trainY,testX,testY,fspace=None,max_calls=50):
     from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
