@@ -4,6 +4,9 @@ import pandas as pd
 from os import listdir
 cimport cython
 
+from libc.math cimport isnan
+
+
 def train_test_split(data,only_interesting=True):
     from sklearn import preprocessing
     data = data.dropna(how='any')
@@ -88,3 +91,39 @@ def optimize_gbt(trainX,trainY,testX,testY,fspace=None,max_calls=50):
     best = fmin(fn=f, space=fspace, algo=tpe.suggest, max_evals=max_calls, trials=trials)
     print 'best:', best
     return trials
+
+@cython.cdivision(True)
+cdef single_path_score(np.ndarray[double,ndim=1] wmids, int side, long dex, double start, double win, double loss):
+    cdef:
+        long i = dex, w_len = wmids.shape[0]
+
+    if side == 1:
+        for i from dex <= i < w_len:
+            if isnan(wmids[i]):
+                continue
+            if wmids[i] - win > start:
+                return 1
+            if wmids[i] < start - loss:
+                return 0
+        return np.NaN
+    else:
+        for i from dex <= i < w_len:
+            if isnan(wmids[i]):
+                continue
+            if wmids[i] < start - win:
+                return 1
+            if wmids[i] - loss > start:
+                return 0
+        return np.NaN
+
+@cython.cdivision(True)
+def path_score(np.ndarray[double,ndim=1] wmids, int side, double win, double loss, double tw):
+    cdef:
+        long i =0
+        long w_len = wmids.shape[0]
+        np.ndarray[double,ndim=1] res = np.zeros(w_len,dtype=np.double) * np.NaN
+        double winner = win * tw
+        double loser = loss * tw
+    for i from 0 <= i < w_len:
+        res[i] = single_path_score(wmids,side,i,wmids[i],winner,loser)
+    return res
